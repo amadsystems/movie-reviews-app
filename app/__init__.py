@@ -1,7 +1,7 @@
 import os
 
-from dotenv import load_dotenv
 from flask import Flask, request
+from dotenv import load_dotenv
 
 from config import DevConfig
 from app.movies.routes import movies_bp
@@ -12,6 +12,7 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
+
     app.config.from_object(DevConfig)
     app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
@@ -20,6 +21,6 @@ def create_app():
 
     @app.before_request
     def log_request():
-        print(f"{request.method} {request.path}")
+        print(request.method, request.path)
 
     return app
